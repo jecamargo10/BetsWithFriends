@@ -57,6 +57,8 @@ public class GenericResource {
         //TODO return proper representation object
         throw new UnsupportedOperationException();
 
+        
+        
     }
 
     @GET

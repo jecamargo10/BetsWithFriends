@@ -20,6 +20,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
+import nj.bestDTO.FixturesDTO;
 import nj.bestDTO.LeaguesDTO;
 import nj.restconnection.GetRest;
 
@@ -57,8 +58,6 @@ public class GenericResource {
         //TODO return proper representation object
         throw new UnsupportedOperationException();
 
-        
-        
     }
 
     @GET
@@ -69,9 +68,11 @@ public class GenericResource {
     public Response getLeagues(@QueryParam("step") String fecha) {
 
         //TODO return proper representation object
+
         rest = new GetRest("http://api.football-data.org/v1/competitions/?season=" + fecha);
         String anwser = "[";
         try {
+            rest.connect();
             ArrayList<LeaguesDTO> leagues = rest.getLeagues();
             for (int i = 0; i < leagues.size() - 1; i++) {
                 Gson gson = new Gson();
@@ -80,21 +81,44 @@ public class GenericResource {
                     anwser += (gson.toJson(leagues.get(i)) + ",");
                 } else {
                     anwser += gson.toJson(leagues.get(i));
-
                 }
-
             }
-
         } catch (Exception ex) {
             ex.printStackTrace();
         }
-
         anwser += "]";
         System.out.println(anwser);
-
         return Response.status(201).entity(anwser).build();
-
     }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+
+    @Path("getFixtures")
+
+    public Response getFixtures(@QueryParam("date1") String date1, @QueryParam("date2") String date2, @QueryParam("league") String league) {
+        //TODO return proper representation object
+        rest = new GetRest("http://api.football-data.org/v1/competitions/" + league + "/fixtures?timeFrameStart=" + date1 + "&timeFrameEnd=" + date2);
+        String anwser = "[";
+        try {
+            rest.connect();
+            ArrayList<FixturesDTO> fixtures = rest.getFixtures();
+            for (int i = 0; i < fixtures.size() - 1; i++) {
+                Gson gson = new Gson();
+                
+                if (i != fixtures.size() - 2) {
+                    anwser += (gson.toJson(fixtures.get(i)) + ",");
+                } else {
+                    anwser += gson.toJson(fixtures.get(i));
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        anwser += "]";
+        return Response.status(201).entity(anwser).build();
+    }
+
 
     /**
      * PUT method for updating or creating an instance of GenericResource

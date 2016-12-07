@@ -1,5 +1,7 @@
-nj/security/JWT.class
-nj/betswithfriends/GenericResource.class
-nj/bestDTO/LeaguesDTO.class
-nj/betswithfriends/ApplicationConfig.class
-nj/restconnection/GetRest.class
+nj\bestDTO\ResultDTO.class
+nj\betswithfriends\ApplicationConfig.class
+nj\bestDTO\FixturesDTO.class
+nj\security\JWT.class
+nj\restconnection\GetRest.class
+nj\betswithfriends\GenericResource.class
+nj\bestDTO\LeaguesDTO.class

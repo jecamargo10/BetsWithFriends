@@ -20,6 +20,7 @@ import nj.bestDTO.LeaguesDTO;
  */
 public class GetRest {
 
+    //Cambiar estructura de datos
     public ArrayList<LeaguesDTO> leagues = new ArrayList();
     public ArrayList<FixturesDTO> fixtures = new ArrayList();
 
@@ -75,25 +76,17 @@ public class GetRest {
     
     
     public ArrayList<FixturesDTO> getFixtures() throws Exception {
-        String[] full = response.toString().split("}},");
-        String[] suprimeFull = new String[full.length];
-        for (int i = 2; i < full.length; i = i + 2) {
-            String league = "{" + (full[i].split(",\"odds\"")[0]) + "}";
-            // league = league.substring(0, league.length() - 1);
-            if (league.contains("halfTime")) {
-                league += "}}";
-            }
-            suprimeFull[i - 2] = league;
-            System.out.println(league);
-        }
-        for (int i = 0; i < suprimeFull.length; i=i+2) {
-            Gson tak = new Gson();
+      String[] full = response.toString().split("\"}},\"");
+        String[] suprimeFull = new String[full.length-1];
+    for (int i = 2; i < full.length; i ++) {
+         String league = "{\"" + (full[i].split(",\"odds\"")[0]) + "}";
+            suprimeFull[i-2] = league;
+ }
+        for (int i = 0; i < suprimeFull.length; i++) {
+           Gson tak = new Gson();
             FixturesDTO tokns = tak.fromJson(suprimeFull[i], FixturesDTO.class);
-           
             fixtures.add(tokns);
-                        System.out.println("agrego");
-
-        }
+ }
         return fixtures;
     }
 /**

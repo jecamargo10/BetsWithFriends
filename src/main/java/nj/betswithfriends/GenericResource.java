@@ -33,16 +33,19 @@ import nj.restconnection.GetRest;
 public class GenericResource {
 
     // Solo se tiene que setear una vez por dia ? 
+        // Horario esta en GMT
+
     @Context
     private UriInfo context;
-
+public static int asd;
     public static GetRest rest;
 
     /**
      * Creates a new instance of GenericResource
      */
     public GenericResource() {
-    }
+    
+   }
 
     /**
      * Retrieves representation of an instance of
@@ -68,10 +71,10 @@ public class GenericResource {
     public Response getLeagues(@QueryParam("step") String fecha) {
 
         //TODO return proper representation object
-
         rest = new GetRest("http://api.football-data.org/v1/competitions/?season=" + fecha);
         String anwser = "[";
         try {
+            
             rest.connect();
             ArrayList<LeaguesDTO> leagues = rest.getLeagues();
             for (int i = 0; i < leagues.size() - 1; i++) {
@@ -103,7 +106,7 @@ public class GenericResource {
         try {
             rest.connect();
             ArrayList<FixturesDTO> fixtures = rest.getFixtures();
-            for (int i = 0; i < fixtures.size() - 1; i++) {
+            for (int i = 0; i < fixtures.size(); i++) {
                 Gson gson = new Gson();
                 
                 if (i != fixtures.size() - 2) {

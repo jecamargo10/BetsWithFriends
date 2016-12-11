@@ -13,7 +13,17 @@ public class FixturesDTO {
     public String homeTeamName;
     public String awayTeamName;
     public String status;
- public String date;
+    public String matchDay;
+
+    public String getMatchDay() {
+        return matchDay;
+    }
+
+    public void setMatchDay(String matchDay) {
+        this.matchDay = matchDay;
+    }
+
+    public String date;
     public ResultDTO result;
     
     

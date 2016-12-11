@@ -29,11 +29,11 @@ public class DailyUpdateThread implements Runnable
 {
       private static GetRest rest;
 
-    private      Hashtable<Date,FixturesDTO> premierFixtures=new Hashtable<Date,FixturesDTO>();
-    private      Hashtable<Date,FixturesDTO> bbvaFixtures=new Hashtable<Date,FixturesDTO>();
-    private      Hashtable<Date,FixturesDTO> frenchFixtures=new Hashtable<Date,FixturesDTO>();
-    private      Hashtable<Date,FixturesDTO> seriesaFixtures=new Hashtable<Date,FixturesDTO>();
-    private      Hashtable<Date,FixturesDTO> germanFixtures=new Hashtable<Date,FixturesDTO>();
+    private      Hashtable<Date, ArrayList<FixturesDTO>> premierFixtures=new Hashtable<Date,ArrayList<FixturesDTO>>();
+    private      Hashtable<Date, ArrayList<FixturesDTO>> bbvaFixtures=new Hashtable<Date,ArrayList<FixturesDTO>>();
+    private      Hashtable<Date, ArrayList<FixturesDTO>> frenchFixtures=new Hashtable<Date,ArrayList<FixturesDTO>>();
+    private      Hashtable<Date, ArrayList<FixturesDTO>> seriesaFixtures=new Hashtable<Date,ArrayList<FixturesDTO>>();
+    private      Hashtable<Date,ArrayList<FixturesDTO>> germanFixtures=new Hashtable<Date,ArrayList<FixturesDTO>>();
 
                         
                   //      private  ArrayList<FixturesDTO> championsLeagues;
@@ -123,15 +123,14 @@ DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
                                                                                         rest.connect();
 
                                                         premierFixtures = rest.getFixturs();
+System.out.println(premierFixtures.get(dateFormat.parse(dateToday)).size());
 
-System.out.println(premierFixtures.get(date).getHomeTeamName());
 //Ligue 1
 
        rest = new GetRest("http://api.football-data.org/v1/competitions/"+idFrench+"/fixtures?timeFrameStart=" + dateToday + "&timeFrameEnd=" + dateNext);
                                                                                         rest.connect();
 
                                                         frenchFixtures = rest.getFixturs();
-System.out.println(frenchFixtures.get(date).getHomeTeamName());
 
 
 
@@ -141,7 +140,6 @@ System.out.println(frenchFixtures.get(date).getHomeTeamName());
                                                                                         rest.connect();
 
                                                         seriesaFixtures = rest.getFixturs();
-System.out.println(seriesaFixtures.get(date).getHomeTeamName());
 
 
 
@@ -151,7 +149,6 @@ System.out.println(seriesaFixtures.get(date).getHomeTeamName());
                                                                                         rest.connect();
 
                                                         germanFixtures = rest.getFixturs();
-System.out.println(germanFixtures.get(date).getHomeTeamName());
 
 //Bbva
 
@@ -159,7 +156,6 @@ System.out.println(germanFixtures.get(date).getHomeTeamName());
                                                                                         rest.connect();
 
                                                         bbvaFixtures = rest.getFixturs();
-System.out.println(bbvaFixtures.get(date).getHomeTeamName());
 
 //Champions
 /**
